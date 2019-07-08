@@ -3,7 +3,17 @@ import Add from './components/add/Add'
 import List from './components/list/List'
 
 export default class App extends Component{
+
+  state = {comments:[]}
+
+  addComment = (commentObj)=>{
+    let comments = [...this.state.comments]
+    comments.unshift(commentObj)
+    this.setState({comments})
+  }
+
   render(){
+    let {comments} = this.state
     return (
       <div>
         <header className="site-header jumbotron">
@@ -16,8 +26,8 @@ export default class App extends Component{
           </div>
         </header>
         <div className="container">
-          <Add/>
-          <List/>
+          <Add addComment={this.addComment}/>
+          <List comments={comments}/>
         </div>
       </div>
     )

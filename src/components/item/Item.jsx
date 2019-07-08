@@ -3,14 +3,16 @@ import './Item.css'
 
 export default class Item extends Component {
   render() {
+    let {userName,content} = this.props
     return (
       <li className="list-group-item">
         <div className="handle">
           <a href="#2">删除</a>
         </div>
-        <p className="user"><span>xxx</span><span>说:</span></p>
-        <p className="centence">React不错!</p>
+        <p className="user"><span>{userName}</span><span>说:</span></p>
+        <p className="centence">{content}</p>
       </li>
+
     )
   }
 }
