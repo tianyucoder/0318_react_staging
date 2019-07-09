@@ -1,5 +1,4 @@
 import React,{Component} from 'react'
-import axios from 'axios'
 
 export default class App extends Component{
 
@@ -11,30 +10,42 @@ export default class App extends Component{
   }
 
   //关键词
-  keyWord = 'v'
+  keyWord = 'r'
 
   async componentDidMount() {
 
     const url = `https://api.github.com/search/repositories?q=${this.keyWord}&sort=stars`
-    try{
-      let response = await axios.get(url)
-      let repoInfo = response.data.items[0]
-      this.setState({
-        isLoading:false,
-        repoName:repoInfo.name,
-        repoUrl:repoInfo.html_url,
-        errMsg:''
+
+    fetch(url)
+      .then((result)=> {
+        //console.log(result)
+        if(result.ok){
+          return result.json()
+        }else{
+          return Promise.reject('请求资源不存在')
+        }
       })
-    }
-    catch(err){
-      this.setState({
-        isLoading:false,
-        repoName:'',
-        repoUrl:'',
-        errMsg:err.toString()
+      .then((data)=>{
+        console.log('成功了')
+        let repoInfo = data.items[0]
+        this.setState({
+          isLoading:false,
+          repoName:repoInfo.name,
+          repoUrl:repoInfo.html_url,
+          errMsg:''
+        })
       })
-      console.log(err.toString())
-    }
+      .catch((err)=>{
+        console.log(err.toString())
+        this.setState({
+          isLoading:false,
+          repoName:'',
+          repoUrl:'',
+          errMsg:err.toString()
+        })
+      })
+
+
   }
 
   render(){
