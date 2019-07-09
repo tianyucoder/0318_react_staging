@@ -14,7 +14,7 @@ export default class List extends Component {
         <h2 style={{display: comments.length>0?'none':'block'}}>暂无评论，点击左侧添加评论！！！</h2>
         <ul className="list-group">
           {
-            comments.map((item)=>{
+            comments.map((item,index)=>{
                 let commentObj = {
                   userId:item.userId,
                   userName:item.userName,
