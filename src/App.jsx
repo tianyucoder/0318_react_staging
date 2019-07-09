@@ -12,6 +12,17 @@ export default class App extends Component{
     this.setState({comments})
   }
 
+  deleteComment = (userId)=>{
+    let comments = [...this.state.comments]
+    comments.forEach((item,index)=>{
+        if(item.userId === userId){
+          //如果匹配成功，删除匹配到的这个
+          comments.splice(index,1)
+        }
+    })
+    this.setState({comments})
+  }
+
   render(){
     let {comments} = this.state
     return (
@@ -27,7 +38,7 @@ export default class App extends Component{
         </header>
         <div className="container">
           <Add addComment={this.addComment}/>
-          <List comments={comments}/>
+          <List comments={comments} deleteComment={this.deleteComment}/>
         </div>
       </div>
     )

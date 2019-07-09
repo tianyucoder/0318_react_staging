@@ -3,7 +3,10 @@ import Item from '../item/Item'
 import './List.css'
 
 export default class List extends Component {
+
+
   render() {
+   let {deleteComment} = this.props
    let {comments} =  this.props
     return (
       <div className="col-md-8">
@@ -12,7 +15,12 @@ export default class List extends Component {
         <ul className="list-group">
           {
             comments.map((item)=>{
-                return <Item key={item.userId} userName={item.userName} content={item.content}/>
+                let commentObj = {
+                  userId:item.userId,
+                  userName:item.userName,
+                  content:item.content
+                }
+                return <Item key={item.userId} {...commentObj} deleteComment={deleteComment} />
             })
           }
         </ul>
