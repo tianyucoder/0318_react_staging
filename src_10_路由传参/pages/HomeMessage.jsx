@@ -36,8 +36,8 @@ export default class HomeMessage extends Component {
                 return (
                   <li key={item.mid}>
                     <Link to={`/home/message/detail/${item.mid}`}>{item.content}</Link>&nbsp;&nbsp;
-                    {/*<button>push查看</button>&nbsp;&nbsp;
-                    <button>replace查看</button>*/}
+                    <button>push查看</button>&nbsp;&nbsp;
+                    <button>replace查看</button>
                   </li>
                 )
             })
