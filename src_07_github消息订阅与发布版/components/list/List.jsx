@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Item from '../item/Item'
+import PubSub from 'pubsub-js'
 
 
 export default class List extends Component {
@@ -10,10 +11,11 @@ export default class List extends Component {
     users:[],
     errMsg:''
   }
-  
-  componentWillReceiveProps({keyWord}) {
-    console.log(keyWord)
 
+  componentDidMount() {
+    PubSub.subscribe('updateListSate', (msg, {isFirst,isLoading,users,errMsg}) => {
+      this.setState({isFirst,isLoading,users,errMsg})
+    })
   }
 
 

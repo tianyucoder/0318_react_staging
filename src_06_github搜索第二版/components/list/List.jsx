@@ -42,7 +42,6 @@ export default class List extends Component {
       })
   }
 
-
   render() {
     let {isFirst,isLoading,users,errMsg} = this.state
     if(isFirst){

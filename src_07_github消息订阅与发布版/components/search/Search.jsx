@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import axios from 'axios'
+import PubSub from 'pubsub-js'
 
 export default class Search extends Component {
 
@@ -9,31 +10,17 @@ export default class Search extends Component {
     //1.获取用户输入
     let keyWord = this.keyWordRef.current.value.trim()
     //2.发送请求
-    this.setState({
-      isFirst:false,
-      isLoading:true,
-      users:[],
-      errMsg:''
-    })
-    const url = `https://api.github.com/search/users?q=${keyWord}`
+    //发布消息让List去更新状态
+    PubSub.publish('updateListSate',{isFirst:false,isLoading:true,users:[],errMsg:''})
+    const url = `https://api.githubb.com/search/users?q=${keyWord}`
     axios.get(url)
       .then((result)=>{
         console.log(result)
         let users = result.data.items
-        this.setState({
-          isFirst:false,
-          isLoading:false,
-          users,
-          errMsg:''
-        })
+        PubSub.publish('updateListSate',{isFirst:false,isLoading:false,users,errMsg:''})
       })
       .catch((err)=>{
-        this.setState({
-          isFirst:false,
-          isLoading:false,
-          users:[],
-          errMsg:err.toString()
-        })
+        PubSub.publish('updateListSate',{isFirst:false,isLoading:false,users:[],errMsg:err.toString()})
       })
   }
 
