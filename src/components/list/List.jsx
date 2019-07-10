@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import Item from '../item/Item'
-import axios from 'axios'
+
 
 export default class List extends Component {
 
@@ -13,33 +13,7 @@ export default class List extends Component {
   
   componentWillReceiveProps({keyWord}) {
     console.log(keyWord)
-    //2.发送请求
-    this.setState({
-      isFirst:false,
-      isLoading:true,
-      users:[],
-      errMsg:''
-    })
-    const url = `https://api.github.com/search/users?q=${keyWord}`
-    axios.get(url)
-      .then((result)=>{
-        console.log(result)
-        let users = result.data.items
-        this.setState({
-          isFirst:false,
-          isLoading:false,
-          users,
-          errMsg:''
-        })
-      })
-      .catch((err)=>{
-        this.setState({
-          isFirst:false,
-          isLoading:false,
-          users:[],
-          errMsg:err.toString()
-        })
-      })
+
   }
 
 

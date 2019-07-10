@@ -1,15 +1,40 @@
 import React, {Component} from 'react'
+import axios from 'axios'
 
 export default class Search extends Component {
 
   keyWordRef = React.createRef()
 
   search = ()=>{
-    let {updateKeyWord} = this.props
     //1.获取用户输入
     let keyWord = this.keyWordRef.current.value.trim()
-    //2.维护关键词到App的状态中，进而传给List
-    updateKeyWord(keyWord)
+    //2.发送请求
+    this.setState({
+      isFirst:false,
+      isLoading:true,
+      users:[],
+      errMsg:''
+    })
+    const url = `https://api.github.com/search/users?q=${keyWord}`
+    axios.get(url)
+      .then((result)=>{
+        console.log(result)
+        let users = result.data.items
+        this.setState({
+          isFirst:false,
+          isLoading:false,
+          users,
+          errMsg:''
+        })
+      })
+      .catch((err)=>{
+        this.setState({
+          isFirst:false,
+          isLoading:false,
+          users:[],
+          errMsg:err.toString()
+        })
+      })
   }
 
   render() {
