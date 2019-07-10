@@ -1,4 +1,6 @@
 import React, {Component} from 'react'
+import {Link,Route} from 'react-router-dom'
+import HomeMessageDetail from './HomeMessageDetail'
 
 export default class HomeMessage extends Component {
 
@@ -33,7 +35,7 @@ export default class HomeMessage extends Component {
             messages.map((item)=>{
                 return (
                   <li key={item.mid}>
-                    <a href="/home/message/1">{item.content}</a>&nbsp;&nbsp;
+                    <Link to={`/home/message/detail/${item.mid}`}>{item.content}</Link>&nbsp;&nbsp;
                     {/*<button>push查看</button>&nbsp;&nbsp;
                     <button>replace查看</button>*/}
                   </li>
@@ -43,6 +45,7 @@ export default class HomeMessage extends Component {
         </ul>
         <button>回退</button>
         <hr/>
+        <Route path="/home/message/detail/:id" component={HomeMessageDetail}/>
       </div>
     )
   }
